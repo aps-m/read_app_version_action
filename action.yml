@@ -9,7 +9,7 @@ inputs:
   ver_file:  # id of input
     description: 'File for handling'
     required: true
-    default: ''
+    default: 'none'
   defined_version_var:  
     description: 'defined var for version tag'
     required: true
