@@ -49,9 +49,12 @@ if __name__ == "__main__":
     input_list = __InputListBuilder()
     __ArgParser(input_list)
     # print(f'Filename: {__FileName}, define: {__DefineName}')
+
+    composite_version = ""
     
 
-    with open(__FileName) as f:
+    with open(__FileName, encoding='utf-8') as f:
+
         for line in f:
             probe = re.search(r'#define ' + __DefineName + r' "[\w.-]+"', line)
             if probe:
@@ -59,3 +62,42 @@ if __name__ == "__main__":
                 probe = probe.replace('"', '')
                 probe = probe.replace('#define ' + __DefineName + ' ', '')
                 print(probe)
+                break
+            else:
+                probe = re.search(r'#define ' + __DefineName + r'_MAJOR[\s]+\([0-9]+\)', line)
+                if probe:
+                    probe = re.search(r'\([0-9]+\)', line)
+                    probe = probe[0]
+                    probe = probe.replace('(', '')
+                    probe = probe.replace(')', '')
+                    composite_version += probe + '.'
+
+                probe = re.search(r'#define ' + __DefineName + r'_MINOR[\s]+\([0-9]+\)', line)
+                if probe:
+                    probe = re.search(r'\([0-9]+\)', line)
+                    probe = probe[0]
+                    probe = probe.replace('(', '')
+                    probe = probe.replace(')', '')
+                    composite_version += probe + '.'
+
+                probe = re.search(r'#define ' + __DefineName + r'_PATCH[\s]+\([0-9]+\)', line)
+                if probe:
+                    probe = re.search(r'\([0-9]+\)', line)
+                    probe = probe[0]
+                    probe = probe.replace('(', '')
+                    probe = probe.replace(')', '')
+                    composite_version += probe
+
+                probe = re.search(r'#define ' + __DefineName + r'_BETABUILD[\s]+\([0-9]+\)', line)
+                if probe:
+                    probe = re.search(r'\([0-9]+\)', line)
+                    probe = probe[0]
+                    probe = probe.replace('(', '')
+                    probe = probe.replace(')', '')
+
+                    if not int(probe) == 0:
+                        composite_version += '-b' + probe
+
+                    print(composite_version)
+                    break
+
