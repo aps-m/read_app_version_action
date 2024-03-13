@@ -19,7 +19,7 @@ outputs:
     description: 'Result current app version'
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://sergeyladanov/read-app-version-ci:v1'
   args:
     - -f
     - ${{ inputs.ver_file }}
