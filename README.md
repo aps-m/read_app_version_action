@@ -33,10 +33,20 @@
 
 Файл version_examples/version.h
 
+#### Вариант 1
 ```
 #ifndef FIRMWARE_VERSION
 #define FIRMWARE_VERSION "0.0.1-b35"
 #endif
+```
+
+
+#### Вариант 2
+```
+#define FIRMWARE_VERSION_MAJOR      (35)
+#define FIRMWARE_VERSION_MINOR      (35)
+#define FIRMWARE_VERSION_PATCH      (35)
+#define FIRMWARE_VERSION_BETABUILD  (111)
 ```
 
 
