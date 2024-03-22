@@ -29,7 +29,7 @@
 
 ## Примеры использования
 
-### Пример содержимого файла
+### Пример содержимого файла (для файлов *.h, *.hpp, *.c, *.cpp)
 
 Файл version_examples/version.h
 
@@ -55,12 +55,36 @@
 ```
 - name: Get app version
   id: version_step
-  uses: aps-m/read_app_version_action@main
+  uses: aps-m/read_app_version_action@v2
   with:
     ver_file: 'version_examples/version.h'
     defined_version_var: 'FIRMWARE_VERSION'
 
 ```
+
+
+### Пример содержимого файла (для файлов *.cs)
+
+Файл version_examples/AssemblyInfo.cs
+
+```
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.19.0.28")]
+```
+
+### Получение версии
+
+
+```
+- name: Get app version
+  id: version_step
+  uses: aps-m/read_app_version_action@v2
+  with:
+    ver_file: 'version_examples/AssemblyInfo.cs'
+    defined_version_var: 'AssemblyFileVersion'
+```
+
+
 
 ### Использование результата
 
