@@ -1,27 +1,25 @@
-# action.yml
-name: 'Read version'
-description: 'Getting app version from file'
+name: 'Action for read app version'
+description: 'Reading app version from file'
+author: 'APS'
+
+# Add your action's branding here. This will appear on the GitHub Marketplace.
+# branding:
+#   icon: 'heart'
+#   color: 'red'
+
 inputs:
-  exec_file:
-    description: 'File for execution'
-    required: true
-    default: 'get_c_version.py'
-  ver_file:  # id of input
+  ver_file: # id of input
     description: 'File for handling'
     required: true
     default: 'none'
-  defined_version_var:  
+  defined_version_var:
     description: 'defined var for version tag'
     required: true
     default: 'FIRMWARE_VERSION'
 outputs:
   result_version: # id of output
     description: 'Result current app version'
+
 runs:
-  using: 'docker'
-  image: 'docker://sergeyladanov/read-app-version-ci:v1'
-  args:
-    - -f
-    - ${{ inputs.ver_file }}
-    - -d
-    - ${{ inputs.defined_version_var }}
+  using: node20
+  main: dist/index.js
