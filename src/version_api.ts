@@ -1,6 +1,7 @@
 import * as path from 'path'
 import { GetVersion as GetVersion_C } from './c_version_reader'
 import { GetVersion as GetVersion_CS } from './cs_version_reader'
+import { GetVersion as GetVersion_XML } from './xml_version_reader'
 
 export function Handle(filename: string, keyword: string): string {
   let extension = path.extname(filename)
@@ -16,6 +17,10 @@ export function Handle(filename: string, keyword: string): string {
 
   if (extension === '.cs') {
     return GetVersion_CS(filename, keyword)
+  }
+
+  if (extension === '.csproj' || extension === '.xml') {
+    return GetVersion_XML(filename, keyword)
   }
 
   return ''

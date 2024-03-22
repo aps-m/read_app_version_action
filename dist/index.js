@@ -24942,6 +24942,7 @@ exports.Handle = void 0;
 const path = __importStar(__nccwpck_require__(1017));
 const c_version_reader_1 = __nccwpck_require__(5205);
 const cs_version_reader_1 = __nccwpck_require__(1517);
+const xml_version_reader_1 = __nccwpck_require__(9791);
 function Handle(filename, keyword) {
     let extension = path.extname(filename);
     if (extension === '.h' ||
@@ -24953,9 +24954,71 @@ function Handle(filename, keyword) {
     if (extension === '.cs') {
         return (0, cs_version_reader_1.GetVersion)(filename, keyword);
     }
+    if (extension === '.csproj' || extension === '.xml') {
+        return (0, xml_version_reader_1.GetVersion)(filename, keyword);
+    }
     return '';
 }
 exports.Handle = Handle;
+
+
+/***/ }),
+
+/***/ 9791:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GetVersion = void 0;
+const fs = __importStar(__nccwpck_require__(7147));
+function GetVersion(filename, keyword) {
+    let result = '';
+    const words = fs.readFileSync(filename, 'utf-8');
+    const arr = words.split(/\r?\n/);
+    let composite_version = '';
+    for (let line of arr) {
+        let probe = new RegExp(`<${keyword}>[0-9]+.[0-9]+.[0-9]+.[0-9]+</${keyword}>`).exec(line);
+        if (probe) {
+            probe = new RegExp(`[0-9]+.[0-9]+.[0-9]+.[0-9]+`).exec(line);
+            if (probe) {
+                const verArray = probe[0].split('.');
+                result = `${verArray[0]}`;
+                result = `${result}.${verArray[1]}`;
+                result = `${result}.${verArray[2]}`;
+                if (Number(verArray[3]) > 0) {
+                    result = `${result}-b${verArray[3]}`;
+                }
+                return result;
+            }
+        }
+    }
+    return '';
+}
+exports.GetVersion = GetVersion;
 
 
 /***/ }),

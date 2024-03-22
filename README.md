@@ -28,7 +28,7 @@
 
 ## Примеры использования
 
-### Пример содержимого файла (для файлов *.h, *.hpp, *.c, *.cpp)
+### Пример содержимого файла (для файлов \*.h, \*.hpp, \*.c, \*.cpp)
 
 Файл version_examples/version.h
 
@@ -54,15 +54,14 @@
 ```
 - name: Get app version
   id: version_step
-  uses: aps-m/read_app_version_action@v2
+  uses: aps-m/read_app_version_action@v3
   with:
     ver_file: 'version_examples/version.h'
     defined_version_var: 'FIRMWARE_VERSION'
 
 ```
 
-
-### Пример содержимого файла (для файлов *.cs)
+### Пример содержимого файла (для файлов \*.cs)
 
 Файл version_examples/AssemblyInfo.cs
 
@@ -73,17 +72,33 @@
 
 ### Получение версии
 
-
 ```
 - name: Get app version
   id: version_step
-  uses: aps-m/read_app_version_action@v2
+  uses: aps-m/read_app_version_action@v3
   with:
     ver_file: 'version_examples/AssemblyInfo.cs'
     defined_version_var: 'AssemblyFileVersion'
 ```
 
+### Пример содержимого файла (для файлов \*.csproj, \*.xml )
 
+Файл version_examples/projectname.csproj
+
+```
+<FileVersion>1.5.0.15</FileVersion>
+```
+
+### Получение версии
+
+```
+- name: Get app version
+  id: version_step
+  uses: aps-m/read_app_version_action@v3
+  with:
+    ver_file: 'version_examples/projectname.csproj'
+    defined_version_var: 'FileVersion'
+```
 
 ### Использование результата
 
