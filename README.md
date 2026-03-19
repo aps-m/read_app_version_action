@@ -36,7 +36,7 @@
 
 #### Вариант 1
 
-```
+```c
 #ifndef FIRMWARE_VERSION
 #define FIRMWARE_VERSION "0.0.1-b35"
 #endif
@@ -44,37 +44,36 @@
 
 #### Вариант 2
 
-```
+```c
 #define FIRMWARE_VERSION_MAJOR      (35)
 #define FIRMWARE_VERSION_MINOR      (35)
 #define FIRMWARE_VERSION_PATCH      (35)
 #define FIRMWARE_VERSION_BETABUILD  (111)
 ```
 
-### Получение версии
+### Получение версии из .h файла
 
-```
+```yml
 - name: Get app version
   id: version_step
   uses: aps-m/read_app_version_action@v3
   with:
     ver_file: 'version_examples/version.h'
     defined_version_var: 'FIRMWARE_VERSION'
-
 ```
 
 ### Пример содержимого файла (для файлов \*.cs)
 
 Файл version_examples/AssemblyInfo.cs
 
-```
+```cs
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.19.0.28")]
 ```
 
-### Получение версии
+### Получение версии из AssemblyInfo
 
-```
+```yml
 - name: Get app version
   id: version_step
   uses: aps-m/read_app_version_action@v3
@@ -87,13 +86,13 @@
 
 Файл version_examples/projectname.csproj
 
-```
+```xml
 <FileVersion>1.5.0.15</FileVersion>
 ```
 
-### Получение версии
+### Получение версии из .csproj файла
 
-```
+```yml
 - name: Get app version
   id: version_step
   uses: aps-m/read_app_version_action@v3
@@ -104,7 +103,7 @@
 
 ### Использование результата
 
-```
+```yml
 - name: Echo version res
   run: echo "${{ steps.version_step.outputs.result_version }}"
 ```

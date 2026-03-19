@@ -1,10 +1,10 @@
 import * as path from 'path'
-import { GetVersion as GetVersion_C } from './c_version_reader'
-import { GetVersion as GetVersion_CS } from './cs_version_reader'
-import { GetVersion as GetVersion_XML } from './xml_version_reader'
+import { GetVersion as GetVersion_C } from './c-version-reader'
+import { GetVersion as GetVersion_CS } from './cs-version-reader'
+import { GetVersion as GetVersion_XML } from './xml-version-reader'
 
 export function Handle(filename: string, keyword: string): string {
-  let extension = path.extname(filename)
+  const extension = path.extname(filename)
 
   if (
     extension === '.h' ||
