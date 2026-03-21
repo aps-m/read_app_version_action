@@ -56,7 +56,7 @@
 ```yml
 - name: Get app version
   id: version_step
-  uses: aps-m/read_app_version_action@v4
+  uses: aps-m/read_app_version_action@v5
   with:
     ver_file: 'version_examples/version.h'
     defined_version_var: 'FIRMWARE_VERSION'
@@ -76,7 +76,7 @@
 ```yml
 - name: Get app version
   id: version_step
-  uses: aps-m/read_app_version_action@v4
+  uses: aps-m/read_app_version_action@v5
   with:
     ver_file: 'version_examples/AssemblyInfo.cs'
     defined_version_var: 'AssemblyFileVersion'
@@ -95,7 +95,7 @@
 ```yml
 - name: Get app version
   id: version_step
-  uses: aps-m/read_app_version_action@v4
+  uses: aps-m/read_app_version_action@v5
   with:
     ver_file: 'version_examples/projectname.csproj'
     defined_version_var: 'FileVersion'
